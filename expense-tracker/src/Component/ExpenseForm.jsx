@@ -8,6 +8,10 @@ const ExpenseForm = ({onSaveExpense}) => {
 
     const handleSubmit = (e) =>{
       e.preventDefault();
+      if(title === "" || price === "" || date === "" || category === ""){
+        alert("No field should left empty");
+        return ;
+      }
       onSaveExpense({title,price,date,category})
       setTitle("");
       setCategory("");
