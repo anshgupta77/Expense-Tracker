@@ -7,7 +7,6 @@ function Form() {
     title: "",
     category: "",
   });
-
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
@@ -136,41 +135,7 @@ function Form() {
     </button>
   </form>
 
-  <table className="table-auto border-collapse border border-gray-300 w-full max-w-2xl text-left mb-8 ">
-    <thead>
-      <tr className="bg-gray-700">
-        <th className="border border-gray-300 px-6 py-4 text-lg font-medium text-white">Price</th>
-        <th className="border border-gray-300 px-6 py-4 text-lg font-medium text-white">Date</th>
-        <th className="border border-gray-300 px-6 py-4 text-lg font-medium text-white">Title</th>
-        <th className="border border-gray-300 px-6 py-4 text-lg font-medium text-white">Category</th>
-      </tr>
-    </thead>
-    <tbody >
-      {tableData.length > 0 ? (
-        tableData.map((item, index) => (
-          <>
-          <tr key={index} className="hover:bg-blue-100 transition">
-            <td className="border border-gray-300 px-6 py-4 text-gray-700">{item.price}</td>
-            <td className="border border-gray-300 px-6 py-4 text-gray-700">{item.date}</td>
-            <td className="border border-gray-300 px-6 py-4 text-gray-700">{item.title}</td>
-            <td className="border border-gray-300 px-6 py-4 text-gray-700">{item.category}</td>
-          </tr>
-          <button className="px-4 py-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 transition duration-200 ease-in-out" 
-          onClick={() => handleDelete(index)}>Delete</button>
-          </>
-        ))
-      ) : (
-        <tr>
-          <td
-            colSpan="4"
-            className="border border-gray-300 px-6 py-4 text-center text-gray-700 font-medium"
-          >
-            No data available
-          </td>
-        </tr>
-      )}
-    </tbody>
-  </table>
+  
 </div>
   )
 }
