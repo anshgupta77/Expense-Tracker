@@ -1,13 +1,27 @@
-import { useState } from "react";
+import { useState , useEffect} from "react";
+
 import { Title, Date, Category, Price } from "./Inputs";
-const ExpenseForm = ({onSaveExpense}) => {
+const ExpenseForm = ({onSaveExpense , editIndex, setEditIndex}) => {
     const [title, setTitle] = useState("");
     const [price,setPrice] = useState("");
     const [date,setDate] = useState("");
     const [category,setCategory] = useState("");
+    console.log(editIndex);
+    useEffect(()=>{
 
+      if(editIndex > -1){
+        const formdataString = localStorage.getItem("data") || "[]";
+        const formdata = JSON.parse(formdataString);
+        const prefilledExpense = formdata[editIndex];
+        console.log(editIndex);
+        setPrice(prefilledExpense.price);
+        setCategory(prefilledExpense.category);
+        setDate(prefilledExpense.date);
+        setTitle(prefilledExpense.title);
+      }
+    }, [editIndex]);
     const handleSubmit = (e) =>{
-      e.preventDefault();
+    e.preventDefault();
       if(title === "" || price === "" || date === "" || category === ""){
         alert("No field should left empty");
         return ;
@@ -17,7 +31,21 @@ const ExpenseForm = ({onSaveExpense}) => {
       setCategory("");
       setDate("");
       setPrice("");
+      setEditIndex(-1);
     }
+
+    // const handleEdit = (e) =>{
+    //   e.preventDefault();
+    //     if(title === "" || price === "" || date === "" || category === ""){
+    //       alert("No field should left empty");
+    //       return ;
+    //     }
+    //     onSaveExpense({title,price,date,category})
+    //     setTitle("");
+    //     setCategory("");
+    //     setDate("");
+    //     setPrice("");
+    //   }
     return ( 
         <form
         className="w-full max-w-md flex flex-col justify-center items-center border border-blue-300 p-8 rounded-lg shadow-xl bg-blue-700 text-white mb-8"
@@ -30,12 +58,19 @@ const ExpenseForm = ({onSaveExpense}) => {
         <Date value={date} onChange={setDate}></Date>
         <Price value={price} onChange={setPrice}></Price>
         <Category value={category} onChange={setCategory}></Category>
-        <button
+
+        {editIndex > -1 ?<button
+          type="submit"
+          className="w-1/4 p-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition"
+        >
+          Edit
+        </button> : <button
           type="submit"
           className="w-1/4 p-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition"
         >
           Submit
-        </button>
+        </button>}
+        
       </form> 
      );
 }

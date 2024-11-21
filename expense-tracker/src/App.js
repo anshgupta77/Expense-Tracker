@@ -15,6 +15,7 @@ function App() {
   });
 
   const [tableData, setTableData] = useState([]);
+  const [editIndex, setEditIndex] = useState(-1);
   return (
     <>
     <Router>
@@ -22,9 +23,8 @@ function App() {
         <h1 className='text-center text-xl font-bold mb-4'></h1>
       <Routes>
         <Route path="/" element={<Home path></Home>}></Route>
-        <Route path='/add' element={<Form  formdata={formdata} setformdata={setformdata}  />} />
-        < Route path='/view' element={<ViewExpense  tableData={tableData} 
-                setTableData={setTableData}/>} />
+        <Route path='/add' element={<Form  formdata={formdata} setformdata={setformdata} editIndex={editIndex} setEditIndex={setEditIndex} />} />
+        < Route path='/view' element={<ViewExpense  tableData={tableData} setTableData={setTableData} setEditIndex={setEditIndex}/>} />
       </Routes>
     </Router>
     </>
