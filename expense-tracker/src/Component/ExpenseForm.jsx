@@ -33,19 +33,6 @@ const ExpenseForm = ({onSaveExpense , editIndex, setEditIndex}) => {
       setPrice("");
       setEditIndex(-1);
     }
-
-    // const handleEdit = (e) =>{
-    //   e.preventDefault();
-    //     if(title === "" || price === "" || date === "" || category === ""){
-    //       alert("No field should left empty");
-    //       return ;
-    //     }
-    //     onSaveExpense({title,price,date,category})
-    //     setTitle("");
-    //     setCategory("");
-    //     setDate("");
-    //     setPrice("");
-    //   }
     return ( 
         <form
         className="w-full max-w-md flex flex-col justify-center items-center border border-blue-300 p-8 rounded-lg shadow-xl bg-blue-700 text-white mb-8"
