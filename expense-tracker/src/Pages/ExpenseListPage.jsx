@@ -4,10 +4,9 @@ import React, { useState } from "react";
 
 import ExpenseList from "../Component/ExpenseList";
 import { useNavigate } from "react-router-dom";
-const ExpenseListPage = ({setEditIndex}) => {
-  const [tableData, setTableData] = useState(
-    JSON.parse(localStorage.getItem("data") || "[]")
-  );
+import { setExpensesInBackend } from "../services/localStorage";
+const ExpenseListPage = ({setEditIndex, expenses, setExpenses}) => {
+  
 
   const navigate = useNavigate();
   
@@ -16,23 +15,25 @@ const ExpenseListPage = ({setEditIndex}) => {
     navigate("/add");
   };
 
-  const handleDelete = (index) => {
-    const updatedData = [...tableData];
-    updatedData.splice(index, 1);
-    if(updatedData.length === 0){
-      localStorage.clear()
-    }
-    else{
-      localStorage.setItem("data", JSON.stringify(updatedData));
-    }
-    setTableData(updatedData);
+  const handleDelete = (ind) => {
+    // const updatedData = [...expenses];
+    // updatedData.splice(index, 1);
+    // setExpenses(updatedData);
+    // setEditIndex(-1);
+    console.log("Deleted Index",ind);
+    const updatedData = expenses.filter((_,index) => {
+        // console.log(index);
+        return ind!==index;
+    })
+    setExpensesInBackend(updatedData).then(() =>console.log("Expenses is saved in backend"));
+    setExpenses(updatedData);
   };
 
   return (
         <ExpenseList 
         handleEdit={handleEdit}
         handleDelete = {handleDelete}
-        tableData = {tableData}>
+        expenses = {expenses}>
         </ExpenseList>
   );
 };

@@ -1,7 +1,7 @@
 import { useState , useEffect} from "react";
 
 import { Title, Date, Category, Price } from "./Inputs";
-const ExpenseForm = ({onSaveExpense , editIndex, setEditIndex}) => {
+const ExpenseForm = ({onSaveExpense , editIndex, setEditIndex, expenses}) => {
     const [title, setTitle] = useState("");
     const [price,setPrice] = useState("");
     const [date,setDate] = useState("");
@@ -10,9 +10,9 @@ const ExpenseForm = ({onSaveExpense , editIndex, setEditIndex}) => {
     useEffect(()=>{
 
       if(editIndex > -1){
-        const formdataString = localStorage.getItem("data") || "[]";
-        const formdata = JSON.parse(formdataString);
-        const prefilledExpense = formdata[editIndex];
+        // const formdataString = localStorage.getItem("data") || "[]";
+        // const formdata = JSON.parse(formdataString);
+        const prefilledExpense = expenses[editIndex];
         console.log(editIndex);
         setPrice(prefilledExpense.price);
         setCategory(prefilledExpense.category);

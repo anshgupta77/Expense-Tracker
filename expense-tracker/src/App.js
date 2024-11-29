@@ -4,8 +4,9 @@ import Form from './Pages/ExpenseFormPage';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Navbar from './Component/navbar/Navbar';
 import ViewExpense from './Pages/ExpenseListPage';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Home from './Pages/Home';
+import { getExpensesFromBackend, setExpensesInBackend } from './services/localStorage';
 function App() {
   const [formdata, setformdata] = useState({
     price: "",
@@ -14,8 +15,15 @@ function App() {
     category: "",
   });
 
-  const [tableData, setTableData] = useState([]);
   const [editIndex, setEditIndex] = useState(-1);
+  const [expenses, setExpenses] = useState([]);
+  useEffect(()=>{
+    getExpensesFromBackend().then(expensesVal => setExpenses(expensesVal))
+  },[])     // It will run only one time.
+  
+  useEffect(() =>{
+    setExpensesInBackend(expenses).then(() =>console.log("Expenses is saved in backend"));
+  }, [expenses]);   // it will run only when the their is the change in expenses.
   return (
     <>
     <Router>
@@ -23,8 +31,8 @@ function App() {
         <h1 className='text-center text-xl font-bold mb-4'></h1>
       <Routes>
         <Route path="/" element={<Home path></Home>}></Route>
-        <Route path='/add' element={<Form  formdata={formdata} setformdata={setformdata} editIndex={editIndex} setEditIndex={setEditIndex} />} />
-        < Route path='/view' element={<ViewExpense  tableData={tableData} setTableData={setTableData} setEditIndex={setEditIndex}/>} />
+        <Route path='/add' element={<Form  formdata={formdata} setformdata={setformdata} editIndex={editIndex} setEditIndex={setEditIndex} expenses={expenses} setExpenses={setExpenses} />} />
+        < Route path='/view' element={<ViewExpense  setEditIndex={setEditIndex} expenses={expenses} setExpenses={setExpenses}/>} />
       </Routes>
     </Router>
     </>
