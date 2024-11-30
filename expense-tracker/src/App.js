@@ -7,14 +7,6 @@ import ViewExpense from './Pages/ExpenseListPage';
 import { useState } from 'react';
 import Home from './Pages/Home';
 function App() {
-  const [formdata, setformdata] = useState({
-    price: "",
-    date: "",
-    title: "",
-    category: "",
-  });
-
-  const [tableData, setTableData] = useState([]);
   const [editIndex, setEditIndex] = useState(-1);
   return (
     <>
@@ -23,8 +15,8 @@ function App() {
         <h1 className='text-center text-xl font-bold mb-4'></h1>
       <Routes>
         <Route path="/" element={<Home path></Home>}></Route>
-        <Route path='/add' element={<Form  formdata={formdata} setformdata={setformdata} editIndex={editIndex} setEditIndex={setEditIndex} />} />
-        < Route path='/view' element={<ViewExpense  tableData={tableData} setTableData={setTableData} setEditIndex={setEditIndex}/>} />
+        <Route path='/add' element={<Form editIndex={editIndex} setEditIndex={setEditIndex} />} />
+        < Route path='/view' element={<ViewExpense setEditIndex={setEditIndex}/>} />
       </Routes>
     </Router>
     </>

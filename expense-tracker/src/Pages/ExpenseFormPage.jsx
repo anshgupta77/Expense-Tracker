@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ExpenseForm from "../Component/ExpenseForm";
+import { getExpensesFromLocals, setExpensesInLocals } from "../service/localStorage";
 function ExpenseFormPage({editIndex , setEditIndex}) {
     const navigate = useNavigate();
-    const formdataString = localStorage.getItem("data") || "[]";
-    const formdata = JSON.parse(formdataString);
     const onSaveExpense = (expense) => {
-      // e.preventDefault();
       console.log(editIndex);
+      const expenses = getExpensesFromLocals();
       if(editIndex > -1){
-        formdata[editIndex] = expense;
+        expenses[editIndex] = expense;
       }
       else{
-        formdata.push(expense);
+        expenses.push(expense);
       }
-      const updatedFormData = JSON.stringify(formdata);
-      localStorage.setItem("data", updatedFormData);
+      setExpensesInLocals(expenses);
+      setEditIndex(-1);
       navigate("/view");
     };
-
-
-
   return (
 <div className="flex flex-col items-center p-6 bg-gray-50 min-h-screen">
     <ExpenseForm onSaveExpense = {onSaveExpense} editIndex={editIndex} setEditIndex={setEditIndex}></ExpenseForm>

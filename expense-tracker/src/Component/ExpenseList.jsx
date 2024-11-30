@@ -1,9 +1,9 @@
 const ExpenseList = ({
      handleEdit,
-     tableData,
-     handleDelete,
+     expenses,
+     handleDelete
     }) => {
-
+      console.log(expenses);
     return ( 
         <div className="min-h-screen flex justify-center items-center bg-gray-100">
       <table className="table-auto border-collapse border border-gray-300 w-full max-w-2xl text-left mb-8">
@@ -27,8 +27,8 @@ const ExpenseList = ({
           </tr>
         </thead>
         <tbody>
-          {tableData.length > 0 ? (
-            tableData.map((item, index) => (
+          { expenses.length > 0 ? (
+             expenses.map((item, index) => (
               <tr key={index}>
                 <td className="border border-gray-300 px-6 py-4 text-gray-700">
                   {item.title}

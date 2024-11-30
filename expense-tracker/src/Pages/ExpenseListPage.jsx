@@ -4,11 +4,14 @@ import React, { useState } from "react";
 
 import ExpenseList from "../Component/ExpenseList";
 import { useNavigate } from "react-router-dom";
+import { getExpensesFromLocals, setExpensesInLocals } from "../service/localStorage";
+function useForceUpdate(){
+    const[, setValues] = useState(0);
+    return () => setValues(value => value+1);
+}
 const ExpenseListPage = ({setEditIndex}) => {
-  const [tableData, setTableData] = useState(
-    JSON.parse(localStorage.getItem("data") || "[]")
-  );
-
+  const expenses = getExpensesFromLocals();
+  const forceUpdate = useForceUpdate(); //useForceUpdate is a hook ... and forceUpdate is function.
   const navigate = useNavigate();
   
   const handleEdit = (index) => {
@@ -17,22 +20,17 @@ const ExpenseListPage = ({setEditIndex}) => {
   };
 
   const handleDelete = (index) => {
-    const updatedData = [...tableData];
+    const updatedData = expenses;
     updatedData.splice(index, 1);
-    if(updatedData.length === 0){
-      localStorage.clear()
-    }
-    else{
-      localStorage.setItem("data", JSON.stringify(updatedData));
-    }
-    setTableData(updatedData);
+    setExpensesInLocals(updatedData);
+    forceUpdate();
   };
 
   return (
         <ExpenseList 
         handleEdit={handleEdit}
         handleDelete = {handleDelete}
-        tableData = {tableData}>
+        expenses = {expenses}>
         </ExpenseList>
   );
 };

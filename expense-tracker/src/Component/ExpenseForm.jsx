@@ -1,38 +1,42 @@
 import { useState , useEffect} from "react";
 
 import { Title, Date, Category, Price } from "./Inputs";
+import { getExpensesFromLocals } from "../service/localStorage";
+function emptyForm(){
+  return {
+    price:"",
+    title:"",
+    category:"",
+    date:""
+  }        //Object
+}
+function forValuesFromLocalStorage(ind){
+  const expenses = getExpensesFromLocals();
+  const expense = expenses[ind];
+  return expense;
+}
 const ExpenseForm = ({onSaveExpense , editIndex, setEditIndex}) => {
-    const [title, setTitle] = useState("");
-    const [price,setPrice] = useState("");
-    const [date,setDate] = useState("");
-    const [category,setCategory] = useState("");
+    const prefilledForm = editIndex > -1 ? forValuesFromLocalStorage(editIndex)  : emptyForm();
     console.log(editIndex);
-    useEffect(()=>{
 
-      if(editIndex > -1){
-        const formdataString = localStorage.getItem("data") || "[]";
-        const formdata = JSON.parse(formdataString);
-        const prefilledExpense = formdata[editIndex];
-        console.log(editIndex);
-        setPrice(prefilledExpense.price);
-        setCategory(prefilledExpense.category);
-        setDate(prefilledExpense.date);
-        setTitle(prefilledExpense.title);
-      }
-    }, [editIndex]);
+    const [formValues,setFormValues] = useState(prefilledForm);
     const handleSubmit = (e) =>{
     e.preventDefault();
       if(title === "" || price === "" || date === "" || category === ""){
         alert("No field should left empty");
         return ;
       }
-      onSaveExpense({title,price,date,category})
-      setTitle("");
-      setCategory("");
-      setDate("");
-      setPrice("");
-      setEditIndex(-1);
+      const expense = formValues;
+      onSaveExpense(expense)
+      setFormValues(emptyForm());
     }
+    const [date, setDate] = [formValues.date, (val) =>
+      {
+        return setFormValues((preState) => ({...preState, date: val}))
+      }]
+    const [price,setPrice] = [formValues.price, (val) => setFormValues(preState => ({...preState, price: val}))];
+    const [title,setTitle] = [formValues.title, (val) => setFormValues((preState) =>({...preState , title: val }))]
+    const [category,setCategory] = [formValues.category, (val) => setFormValues((preState) =>({...preState, category: val}))];
     return ( 
         <form
         className="w-full max-w-md flex flex-col justify-center items-center border border-blue-300 p-8 rounded-lg shadow-xl bg-blue-700 text-white mb-8"
