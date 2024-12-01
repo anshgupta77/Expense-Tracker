@@ -12,14 +12,15 @@ function emptyForm(){
     date:""
   }        //Object
 }
-function forValuesFromLocalStorage(ind){
-  const expenses = getExpensesFromBackend();
+function forValuesFromLocalStorage(ind,expenses){
+  console.log(ind);
   const expense = expenses[ind];
+  console.log(expense);
   return expense;
 }
 const ExpenseForm = ({onSaveExpense , editIndex, setEditIndex, expenses}) => {
-  const prefilledForm = editIndex > -1 ? forValuesFromLocalStorage(editIndex)  : emptyForm();
   console.log(editIndex);
+  const prefilledForm = editIndex > -1 ? forValuesFromLocalStorage(editIndex, expenses)  : emptyForm();
 
   const [formValues,setFormValues] = useState(prefilledForm);
   const handleSubmit = (e) =>{

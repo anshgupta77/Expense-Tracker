@@ -3,7 +3,6 @@ const ExpenseList = ({
      expenses,
      handleDelete,
     }) => {
-      console.log(expenses.length);
     return ( 
         <div className="min-h-screen flex justify-center items-center bg-gray-100">
       <table className="table-auto border-collapse border border-gray-300 w-full max-w-2xl text-left mb-8">
