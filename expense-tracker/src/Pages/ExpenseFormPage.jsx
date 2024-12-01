@@ -5,7 +5,6 @@ import ExpenseList from "../Component/ExpenseList";
 import { setExpensesInBackend } from "../services/localStorage";
 function ExpenseFormPage({editIndex , setEditIndex, setExpenses, expenses}) {
     const navigate = useNavigate();
-    // const formdataString = localStorage.getItem("data") || "[]";
     const formdata=expenses;
     const onSaveExpense = (expense) => {
       // e.preventDefault();
@@ -19,7 +18,6 @@ function ExpenseFormPage({editIndex , setEditIndex, setExpenses, expenses}) {
       const updatedFormData = formdata;
       setExpenses(formdata);
       setExpensesInBackend(formdata).then(() =>console.log("Expenses is saved in backend"));
-      // localStorage.setItem("data", updatedFormData);
       navigate("/view");
     };
 

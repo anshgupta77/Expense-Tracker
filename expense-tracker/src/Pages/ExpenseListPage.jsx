@@ -6,10 +6,7 @@ import ExpenseList from "../Component/ExpenseList";
 import { useNavigate } from "react-router-dom";
 import { setExpensesInBackend } from "../services/localStorage";
 const ExpenseListPage = ({setEditIndex, expenses, setExpenses}) => {
-  
-
   const navigate = useNavigate();
-  
   const handleEdit = (index) => {
     setEditIndex(index);
     navigate("/add");
@@ -20,12 +17,14 @@ const ExpenseListPage = ({setEditIndex, expenses, setExpenses}) => {
     // updatedData.splice(index, 1);
     // setExpenses(updatedData);
     // setEditIndex(-1);
+
+
+    
     console.log("Deleted Index",ind);
     const updatedData = expenses.filter((_,index) => {
         // console.log(index);
         return ind!==index;
     })
-    setExpensesInBackend(updatedData).then(() =>console.log("Expenses is saved in backend"));
     setExpenses(updatedData);
   };
 
