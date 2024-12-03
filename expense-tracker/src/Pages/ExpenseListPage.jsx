@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import ExpenseList from "../Component/ExpenseList";
 import { useNavigate } from "react-router-dom";
 import { setExpensesInBackend } from "../services/localStorage";
-const ExpenseListPage = ({setEditIndex, expenses, setExpenses}) => {
+const ExpenseListPage = ({setEditIndex, expenses, setExpenses, dispatch}) => {
   const navigate = useNavigate();
   const handleEdit = (index) => {
     setEditIndex(index);
@@ -17,15 +17,13 @@ const ExpenseListPage = ({setEditIndex, expenses, setExpenses}) => {
     // updatedData.splice(index, 1);
     // setExpenses(updatedData);
     // setEditIndex(-1);
-
+    dispatch({
+        type: "Delete",
+        payload: {ind: ind},
+    })
 
     
-    console.log("Deleted Index",ind);
-    const updatedData = expenses.filter((_,index) => {
-        // console.log(index);
-        return ind!==index;
-    })
-    setExpenses(updatedData);
+    
   };
 
   return (

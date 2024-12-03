@@ -3,6 +3,13 @@ const ExpenseList = ({
      expenses,
      handleDelete,
     }) => {
+      if(!expenses){
+        return (
+          <div className="text-center mt-4 text-gray-700">
+            Loading expenses, please wait...
+          </div>
+        );
+      }
     return ( 
         <div className="min-h-screen flex justify-center items-center bg-gray-100">
       <table className="table-auto border-collapse border border-gray-300 w-full max-w-2xl text-left mb-8">
