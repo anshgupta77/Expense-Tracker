@@ -15,7 +15,7 @@ export async function getExpensesFromBackend() {
     try{
         const expenseDataString = localStorage.getItem(EXPENSES_DATA_KEY) || "[]";
         const expenses = JSON.parse(expenseDataString);
-        await sleep(-4000);
+        await sleep(4000);
         return expenses;
 
     }catch(err){
@@ -24,7 +24,7 @@ export async function getExpensesFromBackend() {
 }
 
 export async function setExpensesInBackend(expenses) {
-    await sleep(-4000);
+    await sleep(4000);
     const updatedExpensesString = JSON.stringify(expenses);
     localStorage.setItem(EXPENSES_DATA_KEY, updatedExpensesString);
 }

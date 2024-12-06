@@ -3,10 +3,13 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css"; // Import the CSS file
 
-const Navbar = () => {
+const Navbar = ({viewCard, setViewCard}) => {
   const location = useLocation(); // Access the current location
   const activeLink = location.pathname; // Track the active link
-
+  function handleView(viewCard){
+    const prev = viewCard;
+    setViewCard(!prev);
+  }
   return (
     <div className="navbar">
       {activeLink === "/" ?
@@ -21,11 +24,19 @@ const Navbar = () => {
             <> Add <hr></hr></> </Link> :
           <Link to="/add" className={`navbar-link`} >
             <> Add</> </Link>}
-        {activeLink === "/view" ?
-          <Link to="/view" className={`navbar-link`} >
+
+        {!viewCard ? (activeLink === "/viewcard" ?
+          <Link to="/view" className={`navbar-link`} onClick={()=>handleView(viewCard)}>
+            <> ViewCard <hr></hr></> </Link> :
+          <Link to="/view" className={`navbar-link`} onClick={()=>handleView(viewCard)}>
+            <> ViewCard</> </Link>): (activeLink === "/view" ?
+          <Link to="/view" className={`navbar-link`} onClick={()=>handleView(viewCard)} >
             <> View <hr></hr></> </Link> :
-          <Link to="/view" className={`navbar-link`} >
-            <> View</> </Link>}
+          <Link to="/view" className={`navbar-link`} onClick={()=>handleView(viewCard)}>
+            <> View</> </Link>)}
+        
+        
+        
       </div>
     </div>
   );

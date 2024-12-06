@@ -11,6 +11,7 @@ import expenseReducer from './Component/reducer/Reducer';
 
 function App() {
   const [editIndex, setEditIndex] = useState(-1);
+  const [viewCard, setViewCard] = useState(false);
   const [expenses, dispatch] = useReducer(expenseReducer,null);
   console.log("Coming from the App",expenses);
   useEffect(()=>{
@@ -33,12 +34,13 @@ function App() {
   return (
     <>
     <Router>
-      <Navbar />
+      <Navbar viewCard={viewCard} setViewCard={setViewCard}/>
         <h1 className='text-center text-xl font-bold mb-4'></h1>
       <Routes>
         <Route path="/" element={<Home path></Home>}></Route>
         <Route path='/add' element={<Form editIndex={editIndex} setEditIndex={setEditIndex} expenses={expenses} dispatch={dispatch} />} />
-        < Route path='/view' element={<ViewExpense  setEditIndex={setEditIndex} expenses={expenses} dispatch={dispatch}/>} />
+        < Route path='/view' element={<ViewExpense  setEditIndex={setEditIndex} expenses={expenses} dispatch={dispatch}  viewCard={viewCard}/> } />
+        {/* < Route path='/viewcard' element={<ExpenseListCardPage  setEditIndex={setEditIndex} expenses={expenses} dispatch={dispatch}/>} /> */}
       </Routes>
     </Router>
     </>

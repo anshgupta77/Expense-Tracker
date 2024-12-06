@@ -1,37 +1,39 @@
-
-// now navigate to ExpenseFormPage.jsx.
-import React, { useState } from "react";
-
+import React from "react";
 import ExpenseList from "../Component/ExpenseList";
 import { useNavigate } from "react-router-dom";
-import { setExpensesInBackend } from "../services/localStorage";
-const ExpenseListPage = ({setEditIndex, expenses, setExpenses, dispatch}) => {
+import ExpenseCard from "../Component/ExpenseCard";
+
+const ExpenseListPage = ({ setEditIndex, expenses, dispatch, viewCard }) => {
   const navigate = useNavigate();
+  console.log("ViewCard", viewCard);
   const handleEdit = (index) => {
     setEditIndex(index);
     navigate("/add");
   };
 
   const handleDelete = (ind) => {
-    // const updatedData = [...expenses];
-    // updatedData.splice(index, 1);
-    // setExpenses(updatedData);
-    // setEditIndex(-1);
     dispatch({
-        type: "Delete",
-        payload: {ind: ind},
-    })
-
-    
-    
+      type: "Delete",
+      payload: { ind },
+    });
   };
 
   return (
-        <ExpenseList 
-        handleEdit={handleEdit}
-        handleDelete = {handleDelete}
-        expenses = {expenses}>
-        </ExpenseList>
+    <>
+      {!viewCard ? (
+        <ExpenseList
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+          expenses={expenses}
+        />
+      ) : (
+        <ExpenseCard
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+          expenses={expenses}
+        />
+      )}
+    </>
   );
 };
 
