@@ -12,15 +12,16 @@ function emptyForm(){
     date:""
   }        //Object
 }
-function forValuesFromLocalStorage(ind,expenses){
-  console.log(ind);
+function forValuesFromLocalStorage(id,expenses){
+  console.log(id);
+  const ind = expenses.findIndex(expense => expense.id === id);
   const expense = expenses[ind];
   console.log(expense);
   return expense;
 }
-const ExpenseForm = ({onSaveExpense , editIndex, setEditIndex, expenses}) => {
-  console.log(editIndex);
-  const prefilledForm = editIndex > -1 ? forValuesFromLocalStorage(editIndex, expenses)  : emptyForm();
+const ExpenseForm = ({onSaveExpense , editId, setEditId, expenses}) => {
+  console.log(editId);
+  const prefilledForm = editId > -1 ? forValuesFromLocalStorage(editId, expenses)  : emptyForm();
 
   const [formValues,setFormValues] = useState(prefilledForm);
   const handleSubmit = (e) =>{
@@ -53,7 +54,7 @@ const ExpenseForm = ({onSaveExpense , editIndex, setEditIndex, expenses}) => {
         <Price value={price} onChange={setPrice}></Price>
         <Category value={category} onChange={setCategory}></Category>
 
-        {editIndex > -1 ?<button
+        {editId > -1 ?<button
           type="submit"
           className="w-1/4 p-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition"
         >

@@ -3,18 +3,18 @@ import ExpenseList from "../Component/ExpenseList";
 import { useNavigate } from "react-router-dom";
 import ExpenseCard from "../Component/ExpenseCard";
 
-const ExpenseListPage = ({ setEditIndex, expenses, dispatch, viewCard }) => {
+const ExpenseListPage = ({ setEditId, expenses, dispatch, viewCard }) => {
   const navigate = useNavigate();
   console.log("ViewCard", viewCard);
-  const handleEdit = (index) => {
-    setEditIndex(index);
+  const handleEdit = (id) => {
+    setEditId(id);
     navigate("/add");
   };
 
-  const handleDelete = (ind) => {
+  const handleDelete = (id) => {
     dispatch({
       type: "Delete",
-      payload: { ind },
+      payload: { id },
     });
   };
 

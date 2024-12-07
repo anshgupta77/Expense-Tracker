@@ -10,8 +10,9 @@ import { getExpensesFromBackend, setExpensesInBackend } from './services/localSt
 import expenseReducer from './Component/reducer/Reducer';
 
 function App() {
-  const [editIndex, setEditIndex] = useState(-1);
+  const [editId, setEditId] = useState(-1);
   const [viewCard, setViewCard] = useState(false);
+  // const [id, setId] = useState(-1);
   const [expenses, dispatch] = useReducer(expenseReducer,null);
   console.log("Coming from the App",expenses);
   useEffect(()=>{
@@ -38,8 +39,8 @@ function App() {
         <h1 className='text-center text-xl font-bold mb-4'></h1>
       <Routes>
         <Route path="/" element={<Home path></Home>}></Route>
-        <Route path='/add' element={<Form editIndex={editIndex} setEditIndex={setEditIndex} expenses={expenses} dispatch={dispatch} />} />
-        < Route path='/view' element={<ViewExpense  setEditIndex={setEditIndex} expenses={expenses} dispatch={dispatch}  viewCard={viewCard}/> } />
+        <Route path='/add' element={<Form editId={editId} setEditId={setEditId} expenses={expenses} dispatch={dispatch} />} />
+        < Route path='/view' element={<ViewExpense  setEditId={setEditId} expenses={expenses} dispatch={dispatch}  viewCard={viewCard} /> } />
         {/* < Route path='/viewcard' element={<ExpenseListCardPage  setEditIndex={setEditIndex} expenses={expenses} dispatch={dispatch}/>} /> */}
       </Routes>
     </Router>

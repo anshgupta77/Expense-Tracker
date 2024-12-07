@@ -31,9 +31,9 @@ const Navbar = ({viewCard, setViewCard}) => {
           <Link to="/view" className={`navbar-link`} onClick={()=>handleView(viewCard)}>
             <> ViewCard</> </Link>): (activeLink === "/view" ?
           <Link to="/view" className={`navbar-link`} onClick={()=>handleView(viewCard)} >
-            <> View <hr></hr></> </Link> :
+            <> ViewList <hr></hr></> </Link> :
           <Link to="/view" className={`navbar-link`} onClick={()=>handleView(viewCard)}>
-            <> View</> </Link>)}
+            <> ViewList</> </Link>)}
         
         
         

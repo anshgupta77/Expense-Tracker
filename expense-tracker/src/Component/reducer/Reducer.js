@@ -1,4 +1,18 @@
-import { setExpensesInBackend } from "../../services/localStorage";
+
+function generateID(state){
+  const id = state.reduce(reducer, 10);
+  console.log(id);
+  return id;
+
+  function reducer(acc, ele){
+    const {id} = ele;
+    if(id > acc){
+      return id;
+    }
+    return acc;
+  }
+}
+
 export default function expenseReducer(state, action){
   switch(action.type){
     case "Fill" : {
@@ -13,7 +27,8 @@ export default function expenseReducer(state, action){
         return state;
       }
       const updatedExpense = [...state];
-      const ind = action.payload;
+      const id = action.payload;
+      const ind =state.findIndex(expense => expense.id === id);
       updatedExpense.splice(ind, 1);
       return updatedExpense;
     }
@@ -23,7 +38,8 @@ export default function expenseReducer(state, action){
         return state;
       }
       const updatedExpense = [...state];
-      const expense = action.payload.expense;
+      let expense = action.payload.expense;
+      expense = {...expense, id: generateID(state)+1};
       console.log(expense);
       updatedExpense.push(expense);
       return updatedExpense;
@@ -34,9 +50,12 @@ export default function expenseReducer(state, action){
       }
       const updatedExpense = [...state];
       const expense = action.payload.expense;
-      const ind = action.payload.editIndex;
+      const id = action.payload.id;
+      console.log("Edit Component id:" ,id);
+      const ind = state.findIndex(expense => expense.id === id);
+      console.log("Edit Component ind", ind);
       updatedExpense[ind] = expense;
-      return updatedExpense;
+      return updatedExpense;     // filter always create a new array. As it not using the previous array.
     }
     default: {
       return state;

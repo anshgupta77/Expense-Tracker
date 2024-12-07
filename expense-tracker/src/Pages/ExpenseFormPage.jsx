@@ -3,16 +3,16 @@ import { useNavigate } from "react-router-dom";
 import ExpenseForm from "../Component/ExpenseForm";
 import ExpenseList from "../Component/ExpenseList";
 import { setExpensesInBackend } from "../services/localStorage";
-function ExpenseFormPage({editIndex , setEditIndex, setExpenses, expenses, dispatch}) {
+function ExpenseFormPage({editId , setEditId, setExpenses, expenses, dispatch}) {
     const navigate = useNavigate();
     const formdata=expenses;
     const onSaveExpense = (expense) => {
       // e.preventDefault();
-      console.log(editIndex);
-      if(editIndex > -1){
+      console.log("Editid",editId);
+      if(editId > -1){
         dispatch({
           type: "Edit",
-          payload: {expense: expense, editIndex: editIndex}
+          payload: {expense: expense, id: expense.id}
         })
       }
       else{
@@ -25,6 +25,7 @@ function ExpenseFormPage({editIndex , setEditIndex, setExpenses, expenses, dispa
       // const updatedFormData = formdata;
       // setExpenses(formdata);
       // setExpensesInBackend(formdata).then(() =>console.log("Expenses is saved in backend"));
+      setEditId(-1);
       navigate("/view");
     };
 
@@ -32,7 +33,7 @@ function ExpenseFormPage({editIndex , setEditIndex, setExpenses, expenses, dispa
 
   return (
 <div className="flex flex-col items-center p-6 bg-gray-50 min-h-screen">
-    <ExpenseForm onSaveExpense = {onSaveExpense} editIndex={editIndex} setEditIndex={setEditIndex} expenses={expenses}></ExpenseForm>
+    <ExpenseForm onSaveExpense = {onSaveExpense} editId={editId} setEditId={setEditId} expenses={expenses}></ExpenseForm>
     {/* <ExpenseList setEditIndex = {setEditIndex}></ExpenseList> */}
 </div>
   )
