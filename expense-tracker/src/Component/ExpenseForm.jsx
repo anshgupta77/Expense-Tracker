@@ -13,14 +13,13 @@ function emptyForm(){
   }        //Object
 }
 function forValuesFromLocalStorage(id,expenses){
-  console.log(id);
+  
   const ind = expenses.findIndex(expense => expense.id === id);
   const expense = expenses[ind];
-  console.log(expense);
+
   return expense;
 }
 const ExpenseForm = ({onSaveExpense , editId, setEditId, expenses}) => {
-  console.log(editId);
   const prefilledForm = editId > -1 ? forValuesFromLocalStorage(editId, expenses)  : emptyForm();
 
   const [formValues,setFormValues] = useState(prefilledForm);

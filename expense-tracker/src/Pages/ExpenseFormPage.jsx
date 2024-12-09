@@ -8,7 +8,6 @@ function ExpenseFormPage({editId , setEditId, setExpenses, expenses, dispatch}) 
     const formdata=expenses;
     const onSaveExpense = (expense) => {
       // e.preventDefault();
-      console.log("Editid",editId);
       if(editId > -1){
         dispatch({
           type: "Edit",
@@ -16,15 +15,11 @@ function ExpenseFormPage({editId , setEditId, setExpenses, expenses, dispatch}) 
         })
       }
       else{
-          console.log("In the expenseForm", expense);
           dispatch({
             type:"Add",
             payload: {expense: expense}
           })
       }
-      // const updatedFormData = formdata;
-      // setExpenses(formdata);
-      // setExpensesInBackend(formdata).then(() =>console.log("Expenses is saved in backend"));
       setEditId(-1);
       navigate("/view");
     };

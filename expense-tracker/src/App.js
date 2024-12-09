@@ -35,12 +35,12 @@ function App() {
   return (
     <>
     <Router>
-      <Navbar viewCard={viewCard} setViewCard={setViewCard}/>
+      <Navbar/>
         <h1 className='text-center text-xl font-bold mb-4'></h1>
       <Routes>
         <Route path="/" element={<Home path></Home>}></Route>
         <Route path='/add' element={<Form editId={editId} setEditId={setEditId} expenses={expenses} dispatch={dispatch} />} />
-        < Route path='/view' element={<ViewExpense  setEditId={setEditId} expenses={expenses} dispatch={dispatch}  viewCard={viewCard} /> } />
+        < Route path='/view' element={<ViewExpense  setEditId={setEditId} expenses={expenses} dispatch={dispatch}  viewCard={viewCard} setViewCard={setViewCard} /> } />
         {/* < Route path='/viewcard' element={<ExpenseListCardPage  setEditIndex={setEditIndex} expenses={expenses} dispatch={dispatch}/>} /> */}
       </Routes>
     </Router>

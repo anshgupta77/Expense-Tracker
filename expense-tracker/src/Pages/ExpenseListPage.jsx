@@ -4,13 +4,10 @@ import { useNavigate } from "react-router-dom";
 import ExpenseCard from "../Component/ExpenseCard";
 import { useState } from "react";
 import {filterReducer, initialFilterState} from "../Component/reducer/FilterReducer";
-const ExpenseListPage = ({ setEditId, expenses, dispatch, viewCard }) => {
+const ExpenseListPage = ({ setEditId, expenses, dispatch, viewCard, setViewCard }) => {
   const navigate = useNavigate();
-  const [filterState, filterDispatch] = useReducer(
-    filterReducer, 
-    initialFilterState
-  );
-  console.log("ViewCard", viewCard);
+  const [filterState, filterDispatch] = useReducer(filterReducer, initialFilterState);
+
   const handleEdit = (id) => {
     setEditId(id);
     navigate("/add");
@@ -22,36 +19,53 @@ const ExpenseListPage = ({ setEditId, expenses, dispatch, viewCard }) => {
       payload: { id },
     });
   };
- 
-  const {selectedCategory} = filterState;
-  const filteredExpenses = selectedCategory === ""? expenses: expenses.filter(expense => expense.category === selectedCategory);
+
+  function handleView() {
+    const prev = viewCard;
+    setViewCard(!prev);
+  }
+
+  const { selectedCategory } = filterState;
+  const filteredExpenses =
+    selectedCategory === ""
+      ? expenses
+      : expenses.filter((expense) => expense.category === selectedCategory);
+
+  const buttonText = viewCard ? "View as List" : "View as Card";
+
   return (
     <>
-
-          <div className="my-4 flex justify-center items-center gap-4">
-              <select
-                value={selectedCategory}
-                onChange={(e) => filterDispatch({
-                  type: "SET_CATEGORY",
-                  payload: e.target.value
-                })}
-                className="px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
-              >
-                <option value="">All Categories</option>
-                <option value="Movie">Movie</option>
-                <option value="Shopping">Shopping</option>
-                <option value="Personal">Personal</option>
-                <option value="Food">Food</option>
-              </select>
-              <button
-                onClick={() => {
-                  // Intentionally left blank as filtering happens dynamically
-                }}
-                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-              >
-                Filter
-              </button>
-            </div>
+      <div className="my-4 flex items-center justify-center gap-4">
+        {/* View as Card Button */}
+        <button
+          onClick={handleView}
+          className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 shadow-md"
+        >
+          {buttonText}
+        </button>
+        {/* Filter Options */}
+        <select
+          value={selectedCategory}
+          onChange={(e) =>
+            filterDispatch({
+              type: "SET_CATEGORY",
+              payload: e.target.value,
+            })
+          }
+          className="px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+        >
+          <option value="">All Categories</option>
+          <option value="Movie">Movie</option>
+          <option value="Shopping">Shopping</option>
+          <option value="Personal">Personal</option>
+          <option value="Food">Food</option>
+        </select>
+        <button
+          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 shadow-md"
+        >
+          Filter
+        </button>
+      </div>
       {!viewCard ? (
         <ExpenseList
           handleEdit={handleEdit}
@@ -70,3 +84,4 @@ const ExpenseListPage = ({ setEditId, expenses, dispatch, viewCard }) => {
 };
 
 export default ExpenseListPage;
+
