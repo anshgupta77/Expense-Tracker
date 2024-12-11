@@ -3,28 +3,22 @@ import { useNavigate } from "react-router-dom";
 import ExpenseForm from "../Component/ExpenseForm";
 import ExpenseList from "../Component/ExpenseList";
 import { setExpensesInBackend } from "../services/localStorage";
-function ExpenseFormPage({editId , setEditId, setExpenses, expenses, dispatch}) {
+import { useDispatch } from "react-redux";
+import { addExpense, editExpense } from "../slices/expenseSlice";
+function ExpenseFormPage({editId , setEditId, setExpenses, expenses, }) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const formdata=expenses;
-    const onSaveExpense = (expense) => {
+    const onSaveExpense = (expense, editId) => {
       // e.preventDefault();
       console.log("Editid",editId);
       if(editId > -1){
-        dispatch({
-          type: "Edit",
-          payload: {expense: expense, id: expense.id}
-        })
+        dispatch(editExpense({editId, expense}))
       }
       else{
           console.log("In the expenseForm", expense);
-          dispatch({
-            type:"Add",
-            payload: {expense: expense}
-          })
+          dispatch(addExpense({expense}))
       }
-      // const updatedFormData = formdata;
-      // setExpenses(formdata);
-      // setExpensesInBackend(formdata).then(() =>console.log("Expenses is saved in backend"));
       setEditId(-1);
       navigate("/view");
     };

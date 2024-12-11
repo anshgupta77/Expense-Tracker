@@ -1,10 +1,9 @@
-
 import { useState } from "react";
 
-const ExpenseCard = ({ handleEdit, expenses, handleDelete }) => {
-  const [selectedCategory, setSelectedCategory] = useState("");
+const ExpenseCard = ({ handleEdit, filteredExpenses, handleDelete }) => {
+  
 
-  if (!expenses) {
+  if (!filteredExpenses) {
     return (
       <div className="text-center mt-4 text-gray-700">
         Loading expenses, please wait...
@@ -12,36 +11,11 @@ const ExpenseCard = ({ handleEdit, expenses, handleDelete }) => {
     );
   }
 
-  // Filter expenses based on the selected category
-  const filteredExpenses = selectedCategory
-    ? expenses.filter((expense) => expense.category === selectedCategory)
-    : expenses;
+  
+  
 
   return (
     <div className="w-[90%] mx-auto">
-      {/* Filter Options */}
-      <div className="my-4 flex justify-center items-center gap-4">
-        <select
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
-        >
-          <option value="">All Categories</option>
-          <option value="movie">Movie</option>
-          <option value="Shopping">Shopping</option>
-          <option value="Personal">Personal</option>
-          <option value="Food">Food</option>
-        </select>
-        <button
-          onClick={() => {
-            // Intentionally left blank as filtering happens dynamically
-          }}
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-        >
-          Filter
-        </button>
-      </div>
-
       {/* Expense Cards */}
       <div className="min-h-screen flex flex-wrap justify-between items-start bg-gray-100 p-4">
         {filteredExpenses.length > 0 ? (

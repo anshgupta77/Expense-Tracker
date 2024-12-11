@@ -31,7 +31,7 @@ const ExpenseForm = ({onSaveExpense , editId, setEditId, expenses}) => {
       return ;
     }
     const expense = formValues;
-    onSaveExpense(expense)
+    onSaveExpense(expense, editId)
     setFormValues(emptyForm());
   }
   const [date, setDate] = [formValues.date, (val) =>
