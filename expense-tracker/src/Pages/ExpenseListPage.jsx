@@ -3,15 +3,18 @@ import ExpenseList from "../Component/ExpenseList";
 import { useNavigate } from "react-router-dom";
 import ExpenseCard from "../Component/ExpenseCard";
 import { useState } from "react";
-import {filterReducer, initialFilterState} from "../Component/reducer/filterReducer";
-import { useDispatch } from "react-redux";
+
+import { useDispatch, useSelector } from "react-redux";
 import { deleteExpense } from "../slices/expenseSlice";
+import { RecentCategory } from "../slices/filterExpenseSlice";
+import { setCategory } from "../slices/filterExpenseSlice";
 const ExpenseListPage = ({ setEditId, expenses, viewCard, setViewCard }) => {
   const navigate = useNavigate();
   // const [filterState, filterDispatch] = useReducer(filterReducer);
   const dispatch = useDispatch();
 
-  const [selectedCategory, selectedCategoryDispatch] = useReducer(filterReducer,"");
+  // const [selectedCategory, selectedCategoryDispatch] = useReducer(filterReducer,"");
+  const selectedCategory = useSelector(RecentCategory);
 
   const handleEdit = (id) => {
     setEditId(id);
@@ -48,11 +51,13 @@ const ExpenseListPage = ({ setEditId, expenses, viewCard, setViewCard }) => {
         {/* Filter Options */}
         <select
           value={selectedCategory}
-          onChange={(e) =>
-            selectedCategoryDispatch({
-              type: "SET_CATEGORY",
-              payload: e.target.value,
-            })
+          onChange={(e) =>{
+            const selectCategory = e.target.value;
+            dispatch(
+              setCategory({selectCategory}),
+            )
+            {console.log('selectCategory======', selectCategory)}
+          }
           }
           className="px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
         >

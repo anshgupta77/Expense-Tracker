@@ -11,7 +11,13 @@ const expenseSlice = createSlice({
     name: "expense",
     initialState: {
         currency : "Rupee",
-        list: [],
+        list: [{
+            id: "1",
+            title: "Jawan",
+            price: "1200",
+            category: "movie",
+            date: "12-09-2024"
+        }],
     },
     reducers:{
         fillExpense :  (state, action) =>{
