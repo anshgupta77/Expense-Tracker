@@ -27,9 +27,9 @@ const expenseSlice = createSlice({
         editExpense : (state, action) =>{
 
             console.log("before the edit",state.list);
-            const {id, expense} = action.payload;
+            const {editId, expense} = action.payload;
             console.log(expense);
-            const ind = state.list.findIndex(expense => expense.id === id);
+            const ind = state.list.findIndex(expense => expense.id === editId);
             state.list[ind]=expense;
             console.log("after the edit",state.list);
         },

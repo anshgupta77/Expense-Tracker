@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const ExpenseCard = ({ handleEdit, filteredExpenses, handleDelete }) => {
   
-
+  console.log("filteredExpenses", filteredExpenses);
   if (!filteredExpenses) {
     return (
       <div className="text-center mt-4 text-gray-700">

@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const ExpenseList = ({ handleEdit, filteredExpenses, handleDelete }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
-
+  console.log("filteredExpenses", filteredExpenses);
   if (!filteredExpenses) {
     return (
       <div className="text-center mt-4 text-gray-700">

@@ -4,9 +4,14 @@ import { useNavigate } from "react-router-dom";
 import ExpenseCard from "../Component/ExpenseCard";
 import { useState } from "react";
 import {filterReducer, initialFilterState} from "../Component/reducer/filterReducer";
-const ExpenseListPage = ({ setEditId, expenses, dispatch, viewCard, setViewCard }) => {
+import { useDispatch } from "react-redux";
+import { deleteExpense } from "../slices/expenseSlice";
+const ExpenseListPage = ({ setEditId, expenses, viewCard, setViewCard }) => {
   const navigate = useNavigate();
-  const [filterState, filterDispatch] = useReducer(filterReducer, initialFilterState);
+  // const [filterState, filterDispatch] = useReducer(filterReducer);
+  const dispatch = useDispatch();
+
+  const [selectedCategory, selectedCategoryDispatch] = useReducer(filterReducer,"");
 
   const handleEdit = (id) => {
     setEditId(id);
@@ -14,10 +19,7 @@ const ExpenseListPage = ({ setEditId, expenses, dispatch, viewCard, setViewCard 
   };
 
   const handleDelete = (id) => {
-    dispatch({
-      type: "Delete",
-      payload: { id },
-    });
+    dispatch(deleteExpense({id}));
   };
 
   function handleView() {
@@ -25,7 +27,7 @@ const ExpenseListPage = ({ setEditId, expenses, dispatch, viewCard, setViewCard 
     setViewCard(!prev);
   }
 
-  const { selectedCategory } = filterState;
+  // const { selectedCategory } = filterState;
   const filteredExpenses =
     selectedCategory === ""
       ? expenses
@@ -47,7 +49,7 @@ const ExpenseListPage = ({ setEditId, expenses, dispatch, viewCard, setViewCard 
         <select
           value={selectedCategory}
           onChange={(e) =>
-            filterDispatch({
+            selectedCategoryDispatch({
               type: "SET_CATEGORY",
               payload: e.target.value,
             })
