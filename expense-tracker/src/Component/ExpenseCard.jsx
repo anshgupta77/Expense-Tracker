@@ -16,14 +16,15 @@ const ExpenseCard = ({ handleEdit, filteredExpenses, handleDelete }) => {
   
 
   return (
-    <div className="w-[90%] mx-auto">
+    <div className="w-[100%] mx-auto">
       {/* Expense Cards */}
-      <div className="min-h-screen flex flex-wrap justify-between items-start bg-gray-100 p-4">
+      <div className="min-h-screen grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 bg-gray-100 p-4">
         {filteredExpenses.length > 0 ? (
           filteredExpenses.map((item, index) => (
+         
             <div
               key={index}
-              className="max-w-sm w-full bg-white shadow-md rounded-lg border border-gray-300 p-4 mb-4"
+              className=" h-[200px] bg-white shadow-md rounded-lg border border-gray-300 p-4 "
             >
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
                 {item.title}
@@ -64,3 +65,6 @@ const ExpenseCard = ({ handleEdit, filteredExpenses, handleDelete }) => {
 };
 
 export default ExpenseCard;
+
+
+
