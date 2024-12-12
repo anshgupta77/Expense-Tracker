@@ -15,8 +15,8 @@ const expenseSlice = createSlice({
             id: "1",
             title: "Jawan",
             price: "1200",
-            category: "movie",
-            date: "12-09-2024"
+            category: "Movie",
+            date: "2024-12-11"
         }],
     },
     reducers:{
