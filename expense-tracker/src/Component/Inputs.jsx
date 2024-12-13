@@ -1,5 +1,6 @@
 import React from "react";
 export const Date = ({ value, onChange }) => {
+    
     return (
       <div className="w-full">
         <label htmlFor="date" className="w-full mb-2 text-gray-300 font-semibold">
@@ -48,6 +49,7 @@ export const Date = ({ value, onChange }) => {
     );
   };
   export const Category = ({ value, onChange }) => {
+    const allCategory = ["Food", "Movie", "Personal", "Shopping","Travel", "Eduction", "Health"];
     return (
     <div className="w-full">
         <label htmlFor="category" className="w-full mb-2 text-gray-300 font-semibold">
@@ -63,11 +65,7 @@ export const Date = ({ value, onChange }) => {
           <option value="" disabled selected hidden>
             Choose an option
           </option>
-          <option value="Food">Food</option>
-          <option value="Movie">Movie</option>
-          <option value="Shopping">Shopping</option>
-          <option value="Personal">Personal</option>
-    
+          {allCategory.map(category => <option value={category}>{category}</option>)}
         </select>
       </div>
     );

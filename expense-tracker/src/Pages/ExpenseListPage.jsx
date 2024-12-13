@@ -17,7 +17,7 @@ import { setCategory, setSortBy, clearSortBy } from "../slices/filterExpenseSlic
   const sortBy = useSelector(RecentSort);
   const selectedCategory = useSelector(RecentCategory);
   const filterButtonText = sortBy === ""? "filter" : "Reset Sort";
-  const orderButtonText = reverseOrdering ? "Acesending": "Descending";
+  const orderButtonText = reverseOrdering ? "ort to Ascending order": "Sort to Descending order";
 
   const handleEdit = (id) => {
     setEditId(id);
