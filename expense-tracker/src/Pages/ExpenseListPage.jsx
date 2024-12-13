@@ -17,7 +17,7 @@ import { setCategory, setSortBy, clearSortBy } from "../slices/filterExpenseSlic
   const sortBy = useSelector(RecentSort);
   const selectedCategory = useSelector(RecentCategory);
   const filterButtonText = sortBy === ""? "filter" : "Reset Sort";
-  const orderButtonText = reverseOrdering ? "ort to Ascending order": "Sort to Descending order";
+  const orderButtonText = reverseOrdering ? "Sort to Ascending order": "Sort to Descending order";
 
   const handleEdit = (id) => {
     setEditId(id);
@@ -66,6 +66,11 @@ import { setCategory, setSortBy, clearSortBy } from "../slices/filterExpenseSlic
       const priceA = a.price;
       const priceB = b.price;
       return priceA-priceB;
+    })
+  }
+  if(sortBy === "title"){
+    filteredExpenses = [...filteredExpenses].sort((a,b) =>{
+      return a.title.localeCompare(b.title);
     })
   }
 
@@ -140,6 +145,21 @@ import { setCategory, setSortBy, clearSortBy } from "../slices/filterExpenseSlic
            
             />
             Sort by Price
+          </label>
+          <label className="flex items-center gap-2">
+            <input
+              type="radio"
+              name="sort"
+              value="title"
+              checked = {sortBy === "title"}
+              onChange={(e) =>{
+                const selectSort = e.target.value;
+                dispatch(setSortBy({selectSort}))
+              }}
+              className="accent-blue-500"
+       
+            />
+            Sort by Title
           </label>
         </div>
         <button
