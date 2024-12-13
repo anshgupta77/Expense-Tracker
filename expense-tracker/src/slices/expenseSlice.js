@@ -17,6 +17,27 @@ const expenseSlice = createSlice({
             price: "1200",
             category: "Movie",
             date: "2024-12-11"
+        },
+        {
+            id: "2",
+            title: "PushPa",
+            price: "1200",
+            category: "Movie",
+            date: "2024-12-11"
+        },
+        {
+            id: "1",
+            title: "Skin Care",
+            price: "1200",
+            category: "Personal",
+            date: "2024-12-11"
+        },
+        {
+            id: "1",
+            title: "War",
+            price: "1200",
+            category: "Movie",
+            date: "2024-12-11"
         }],
     },
     reducers:{
@@ -42,9 +63,12 @@ const expenseSlice = createSlice({
         deleteExpense: (state, action) =>{
             const {id} = action.payload;
             state.list  = state.list.filter(ele => ele.id !== id);
+        },
+        reverseExpense: (state, action) =>{
+            state.list.reverse();
         }
     }
 })
-export const {addExpense, editExpense, deleteExpense, fillExpense} = expenseSlice.actions; // reducers automatically create the action creater.
+export const {addExpense, editExpense, deleteExpense, fillExpense, reverseExpense} = expenseSlice.actions; // reducers automatically create the action creater.
 export default expenseSlice.reducer;
 export const selectAllExpense = (state) => state.expense.list;

@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 function App() {
   const [editId, setEditId] = useState(-1);
   const [viewCard, setViewCard] = useState(false);
+  const [reverseOrdering, setReverseOrdering] = useState("old");
   const dispatch = useDispatch();
   // const [id, setId] = useState(-1);
   // const [expenses, dispatch] = useReducer(expenseReducer,null);
@@ -41,7 +42,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home path></Home>}></Route>
         <Route path='/add' element={<Form editId={editId} setEditId={setEditId} expenses={expenses} dispatch={dispatch} />} />
-        < Route path='/view' element={<ViewExpense  setEditId={setEditId} expenses={expenses}  viewCard={viewCard} setViewCard={setViewCard} /> } />
+        < Route path='/view' element={<ViewExpense  reverseOrdering= {reverseOrdering} setReverseOrdering={setReverseOrdering} setEditId={setEditId} expenses={expenses}  viewCard={viewCard} setViewCard={setViewCard} /> } />
         {/* < Route path='/viewcard' element={<ExpenseListCardPage  setEditIndex={setEditIndex} expenses={expenses} dispatch={dispatch}/>} /> */}
       </Routes>
     </Router>

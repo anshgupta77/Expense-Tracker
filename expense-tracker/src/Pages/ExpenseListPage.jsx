@@ -5,10 +5,10 @@ import ExpenseCard from "../Component/ExpenseCard";
 import { useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { deleteExpense } from "../slices/expenseSlice";
+import { deleteExpense, reverseExpense } from "../slices/expenseSlice";
 import { RecentCategory } from "../slices/filterExpenseSlice";
 import { setCategory } from "../slices/filterExpenseSlice";
-const ExpenseListPage = ({ setEditId, expenses, viewCard, setViewCard }) => {
+  const ExpenseListPage = ({ setEditId, expenses, viewCard, setViewCard , reverseOrdering , setReverseOrdering}) => {
   const navigate = useNavigate();
   // const [filterState, filterDispatch] = useReducer(filterReducer);
   const dispatch = useDispatch();
@@ -30,12 +30,24 @@ const ExpenseListPage = ({ setEditId, expenses, viewCard, setViewCard }) => {
     setViewCard(!prev);
   }
 
+  
   // const { selectedCategory } = filterState;
-  const filteredExpenses =
-    selectedCategory === ""
-      ? expenses
-      : expenses.filter((expense) => expense.category === selectedCategory);
+  var filteredExpenses =
+  selectedCategory === ""
+  ? expenses
+  : expenses.filter((expense) => expense.category === selectedCategory);
+  
+  function handleReverse(){
+    // dispatch(reverseExpense());
+    setReverseOrdering(prev => prev==="old" ? "new": "old");
+    
+    // filteredExpenses = [...filteredExpenses].reverse();
+    console.log("Filtered expense in the reveerse" , filteredExpenses);
+  }
 
+  if(reverseOrdering === "new"){
+    filteredExpenses = [...filteredExpenses].reverse();
+  }
   const buttonText = viewCard ? "View as List" : "View as Card";
 
   return (
@@ -47,6 +59,13 @@ const ExpenseListPage = ({ setEditId, expenses, viewCard, setViewCard }) => {
           className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 shadow-md"
         >
           {buttonText}
+        </button>
+
+        <button
+          onClick={handleReverse}
+          className="px-4 py-2 bg-pink-500 text-white rounded-md hover:bg-pink-600 shadow-md"
+        >
+          {reverseOrdering}
         </button>
         {/* Filter Options */}
         <select
@@ -67,6 +86,29 @@ const ExpenseListPage = ({ setEditId, expenses, viewCard, setViewCard }) => {
           <option value="Personal">Personal</option>
           <option value="Food">Food</option>
         </select>
+
+
+
+        {/* <select
+          value={selectedCategory}
+          onChange={(e) =>{
+            const selectCategory = e.target.value;
+            dispatch(
+              setCategory({selectCategory}),
+            )
+            {console.log('selectCategory======', selectCategory)}
+          }
+          }
+          className="px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+        >
+          <option value="" hidden disabled >Sort by </option>
+          <option value="Movie">Date</option>
+          <option value="Shopping">Price</option>
+        </select> */}
+
+
+
+        
         <button
           className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 shadow-md"
         >
