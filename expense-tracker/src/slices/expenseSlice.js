@@ -26,14 +26,14 @@ const expenseSlice = createSlice({
             date: "2024-10-11"
         },
         {
-            id: "1",
+            id: "3",
             title: "Skin Care",
             price: "120",
             category: "Personal",
             date: "2024-02-11"
         },
         {
-            id: "1",
+            id: "4",
             title: "War",
             price: "1280",
             category: "Movie",
@@ -72,3 +72,4 @@ const expenseSlice = createSlice({
 export const {addExpense, editExpense, deleteExpense, fillExpense, reverseExpense} = expenseSlice.actions; // reducers automatically create the action creater.
 export default expenseSlice.reducer;
 export const selectAllExpense = (state) => state.expense.list;
+

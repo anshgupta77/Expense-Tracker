@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+// import { selectAllExpense } from "./expenseSlice";
 const filterSlice = createSlice({
     name: "filterExpense",
     initialState: {
@@ -24,4 +24,41 @@ export const {setCategory, setSortBy, clearSortBy} = filterSlice.actions;
 export default filterSlice.reducer;
 export const RecentCategory = (state) => state.filterExpense.selectedCategoryList;
 
+
 export const RecentSort = (state) => state.filterExpense.sortListBy;
+export const getFilteredExpenseFromList = (selectedCategory) =>(state) => {
+
+    const expense = [...state.expense.list];
+    if(selectedCategory === "") return expense;  
+    console.log(selectedCategory);
+    return state.expense.list.filter(expense => expense.category === selectedCategory);
+}
+
+export const getSortedExpenseFromList = (filteredExpenses,sortBy) => (state) =>{
+    const expense = [...filteredExpenses];
+    
+    if(sortBy === "date"){
+        return expense.sort((a,b) =>{
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            return dateA - dateB;
+        })
+    }
+    if(sortBy === "price"){
+        return expense.sort((a,b) =>{
+            const priceA = a.price;
+            const priceB = b.price;
+            return priceA-priceB  
+        })
+    }
+    if(sortBy === "title"){
+        const updatedExpense =  expense.sort((a,b) =>{
+            return a.title.localeCompare(b.title);
+        })
+        console.log("Expense in the filter SLice3333 ====");
+        console.log(updatedExpense);
+        return updatedExpense;
+    }
+    return expense;
+
+}

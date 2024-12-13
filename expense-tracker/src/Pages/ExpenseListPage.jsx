@@ -6,18 +6,17 @@ import { useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { deleteExpense, reverseExpense } from "../slices/expenseSlice";
-import { RecentCategory, RecentSort } from "../slices/filterExpenseSlice";
+import { getFilteredExpenseFromList, RecentCategory, RecentSort, getSortedExpenseFromList } from "../slices/filterExpenseSlice";
 import { setCategory, setSortBy, clearSortBy } from "../slices/filterExpenseSlice";
-  const ExpenseListPage = ({ setEditId, expenses, viewCard, setViewCard , reverseOrdering , setReverseOrdering}) => {
-  const buttonText = viewCard ? "View as List" : "View as Card";
-    
-    
+const ExpenseListPage = ({ setEditId, expenses, viewCard, setViewCard , reverseOrdering , setReverseOrdering}) => {
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const sortBy = useSelector(RecentSort);
   const selectedCategory = useSelector(RecentCategory);
+  const buttonText = viewCard ? "View as List" : "View as Card";
   const filterButtonText = sortBy === ""? "filter" : "Reset Sort";
-  const orderButtonText = reverseOrdering ? "Acesending": "Descending";
+  const orderButtonText = reverseOrdering ? "Sort to Ascending order": "Sort to Descending order";
 
   const handleEdit = (id) => {
     setEditId(id);
@@ -43,31 +42,11 @@ import { setCategory, setSortBy, clearSortBy } from "../slices/filterExpenseSlic
 
   
   
-  var filteredExpenses =
-  selectedCategory === ""
-  ? expenses
-  : expenses.filter((expense) => expense.category === selectedCategory);
-  
 
-  // if(reverseOrdering === "new"){
-  //   filteredExpenses = [...filteredExpenses].reverse();
-  // }
+  var filteredExpenses = useSelector(getFilteredExpenseFromList(selectedCategory));
 
-  if(sortBy === "date"){
-    filteredExpenses = [...filteredExpenses].sort((a,b) =>{
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
-      return dateA - dateB;
-    })
-  }
+  filteredExpenses = useSelector(getSortedExpenseFromList(filteredExpenses,sortBy));
 
-  if(sortBy === "price"){
-    filteredExpenses = [...filteredExpenses].sort((a,b) =>{
-      const priceA = a.price;
-      const priceB = b.price;
-      return priceA-priceB;
-    })
-  }
 
   return (
     <>
@@ -97,7 +76,6 @@ import { setCategory, setSortBy, clearSortBy } from "../slices/filterExpenseSlic
             dispatch(
               setCategory({selectCategory}),
             )
-            {console.log('selectCategory======', selectCategory)}
           }
           }
           className="px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
@@ -140,6 +118,22 @@ import { setCategory, setSortBy, clearSortBy } from "../slices/filterExpenseSlic
            
             />
             Sort by Price
+          </label>
+
+          <label className="flex items-center gap-2">
+            <input
+              type="radio"
+              name="sort"
+              value="title"
+              checked = {sortBy === "title"}
+              onChange={(e) =>{
+                const selectSort = e.target.value;
+                dispatch(setSortBy({selectSort}))
+              }}
+              className="accent-blue-500"
+       
+            />
+            Sort by Title
           </label>
         </div>
         <button
