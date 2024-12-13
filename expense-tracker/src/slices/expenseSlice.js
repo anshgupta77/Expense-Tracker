@@ -14,30 +14,30 @@ const expenseSlice = createSlice({
         list: [{
             id: "1",
             title: "Jawan",
-            price: "1200",
+            price: "12110",
             category: "Movie",
-            date: "2024-12-11"
+            date: "2024-01-11"
         },
         {
             id: "2",
             title: "PushPa",
-            price: "1200",
+            price: "100",
             category: "Movie",
-            date: "2024-12-11"
+            date: "2024-10-11"
         },
         {
             id: "1",
             title: "Skin Care",
-            price: "1200",
+            price: "120",
             category: "Personal",
-            date: "2024-12-11"
+            date: "2024-02-11"
         },
         {
             id: "1",
             title: "War",
-            price: "1200",
+            price: "1280",
             category: "Movie",
-            date: "2024-12-11"
+            date: "2024-09-11"
         }],
     },
     reducers:{
