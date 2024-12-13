@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 function App() {
   const [editId, setEditId] = useState(-1);
   const [viewCard, setViewCard] = useState(false);
-  const [reverseOrdering, setReverseOrdering] = useState("old");
+  const [reverseOrdering, setReverseOrdering] = useState(false);
   const dispatch = useDispatch();
   // const [id, setId] = useState(-1);
   // const [expenses, dispatch] = useReducer(expenseReducer,null);

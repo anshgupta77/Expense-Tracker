@@ -1,8 +1,13 @@
 import { useState } from "react";
 
-const ExpenseList = ({ handleEdit, filteredExpenses, handleDelete }) => {
-  const [selectedCategory, setSelectedCategory] = useState("");
+const ExpenseList = ({reverseOrdering, handleEdit, filteredExpenses, handleDelete }) => {
+  // const [selectedCategory, setSelectedCategory] = useState("");
   console.log("filteredExpenses", filteredExpenses);
+
+  if(reverseOrdering){
+    filteredExpenses = [...filteredExpenses].reverse();
+  }
+
   if (!filteredExpenses) {
     return (
       <div className="text-center mt-4 text-gray-700">

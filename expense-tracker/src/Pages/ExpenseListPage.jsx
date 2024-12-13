@@ -17,6 +17,7 @@ import { setCategory, setSortBy, clearSortBy } from "../slices/filterExpenseSlic
   const sortBy = useSelector(RecentSort);
   const selectedCategory = useSelector(RecentCategory);
   const filterButtonText = sortBy === ""? "filter" : "Reset Sort";
+  const orderButtonText = reverseOrdering ? "Acesending": "Descending";
 
   const handleEdit = (id) => {
     setEditId(id);
@@ -32,7 +33,7 @@ import { setCategory, setSortBy, clearSortBy } from "../slices/filterExpenseSlic
     setViewCard(!prev);
   }
   function handleReverse(){
-    setReverseOrdering(prev => prev==="old" ? "new": "old");
+    setReverseOrdering(prev => !prev);
   }
 
   function clearSort(){
@@ -48,9 +49,9 @@ import { setCategory, setSortBy, clearSortBy } from "../slices/filterExpenseSlic
   : expenses.filter((expense) => expense.category === selectedCategory);
   
 
-  if(reverseOrdering === "new"){
-    filteredExpenses = [...filteredExpenses].reverse();
-  }
+  // if(reverseOrdering === "new"){
+  //   filteredExpenses = [...filteredExpenses].reverse();
+  // }
 
   if(sortBy === "date"){
     filteredExpenses = [...filteredExpenses].sort((a,b) =>{
@@ -78,13 +79,14 @@ import { setCategory, setSortBy, clearSortBy } from "../slices/filterExpenseSlic
         >
           {buttonText}
         </button>
-
+        {sortBy ?
         <button
-          onClick={handleReverse}
-          className="px-4 py-2 bg-pink-500 text-white rounded-md hover:bg-pink-600 shadow-md"
-        >
-          {reverseOrdering}
-        </button>
+        onClick={handleReverse}
+        className="px-4 py-2 bg-pink-500 text-white rounded-md hover:bg-pink-600 shadow-md"
+      >
+        {orderButtonText}
+      </button> : <></>}
+        
 
 
 
@@ -149,12 +151,14 @@ import { setCategory, setSortBy, clearSortBy } from "../slices/filterExpenseSlic
       </div>
       {!viewCard ? (
         <ExpenseList
+          reverseOrdering = {reverseOrdering}
           handleEdit={handleEdit}
           handleDelete={handleDelete}
           filteredExpenses={filteredExpenses || null}
         />
       ) : (
         <ExpenseCard
+          reverseOrdering= {reverseOrdering}
           handleEdit={handleEdit}
           handleDelete={handleDelete}
           filteredExpenses={filteredExpenses || null}

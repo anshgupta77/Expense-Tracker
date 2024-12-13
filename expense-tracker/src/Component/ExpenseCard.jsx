@@ -1,6 +1,10 @@
 import { useState } from "react";
 
-const ExpenseCard = ({ handleEdit, filteredExpenses, handleDelete }) => {
+const ExpenseCard = ({ reverseOrdering,handleEdit, filteredExpenses, handleDelete }) => {
+  
+  if(reverseOrdering){
+    filteredExpenses = [...filteredExpenses].reverse();
+  }
   
   console.log("filteredExpenses", filteredExpenses);
   if (!filteredExpenses) {
