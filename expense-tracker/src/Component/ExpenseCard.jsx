@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 
 const ExpenseCard = ({ reverseOrdering,handleEdit, filteredExpenses, handleDelete }) => {
   
@@ -6,7 +6,6 @@ const ExpenseCard = ({ reverseOrdering,handleEdit, filteredExpenses, handleDelet
     filteredExpenses = [...filteredExpenses].reverse();
   }
   
-  console.log("filteredExpenses", filteredExpenses);
   if (!filteredExpenses) {
     return (
       <div className="text-center mt-4 text-gray-700">
@@ -20,7 +19,7 @@ const ExpenseCard = ({ reverseOrdering,handleEdit, filteredExpenses, handleDelet
 
   return (
     <div className="w-[90%] mx-auto">
-      {/* Expense Cards */}
+
       <div className="min-h-screen flex flex-wrap justify-between items-start bg-gray-100 p-4">
         {filteredExpenses.length > 0 ? (
           filteredExpenses.map((item, index) => (

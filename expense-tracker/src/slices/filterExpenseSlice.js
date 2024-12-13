@@ -30,7 +30,7 @@ export const getFilteredExpenseFromList = (selectedCategory) =>(state) => {
 
     const expense = [...state.expense.list];
     if(selectedCategory === "") return expense;  
-    console.log(selectedCategory);
+
     return state.expense.list.filter(expense => expense.category === selectedCategory);
 }
 
@@ -55,8 +55,6 @@ export const getSortedExpenseFromList = (filteredExpenses,sortBy) => (state) =>{
         const updatedExpense =  expense.sort((a,b) =>{
             return a.title.localeCompare(b.title);
         })
-        console.log("Expense in the filter SLice3333 ====");
-        console.log(updatedExpense);
         return updatedExpense;
     }
     return expense;

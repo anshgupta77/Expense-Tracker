@@ -1,8 +1,7 @@
-import { useState } from "react";
+
 
 const ExpenseList = ({reverseOrdering, handleEdit, filteredExpenses, handleDelete }) => {
-  // const [selectedCategory, setSelectedCategory] = useState("");
-  console.log("filteredExpenses", filteredExpenses);
+  
 
   if(reverseOrdering){
     filteredExpenses = [...filteredExpenses].reverse();
@@ -20,7 +19,6 @@ const ExpenseList = ({reverseOrdering, handleEdit, filteredExpenses, handleDelet
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-100 p-4">
-      {/* Expenses Table */}
       <table className="table-auto border-collapse border border-gray-300 w-full max-w-2xl text-left mb-8">
         <thead>
           <tr className="bg-blue-700">

@@ -20,7 +20,7 @@ function forValuesFromLocalStorage(id,expenses){
   return expense;
 }
 const ExpenseForm = ({onSaveExpense , editId, setEditId, expenses}) => {
-  console.log(editId);
+
   const prefilledForm = editId > -1 ? forValuesFromLocalStorage(editId, expenses)  : emptyForm();
 
   const [formValues,setFormValues] = useState(prefilledForm);
